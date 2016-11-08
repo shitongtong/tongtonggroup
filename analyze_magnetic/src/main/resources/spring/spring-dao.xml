@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--配置整合mybatis过程-->
+    <!--1、配置数据库相关参数 properties属性${url}-->
+    <bean class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+    <!--<context:property-placeholder location="classpath:jdbc.properties" />-->
+
+    <!--2、使用c3p0配置数据库连接池-->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!--配置数据库连接属性-->
+        <property name="driverClass" value="${driver}"/>
+        <property name="jdbcUrl" value="${url}"/>
+        <property name="user" value="${username}"/>
+        <property name="password" value="${password}"/>
+
+        <!--c3p0连接池私有属性-->
+        <property name="maxPoolSize" value="30"/>
+        <property name="minPoolSize" value="10"/>
+        <!--关闭连接池后不自动commit 默认-->
+        <property name="autoCommitOnClose" value="false"/>
+        <!--获取连接超时时间 0：无限超时，会产生类似死锁-->
+        <property name="checkoutTimeout" value="1000"/>
+        <!--当获取连接失败，重试次数-->
+        <property name="acquireRetryAttempts" value="2"/>
+    </bean>
+
+    <!--约定大于配置-->
+    <!--3、配置sqlSessionFactory对象-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--注入数据库连接池-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--配置mybatis全局配置文件mybatils-config.xml-->
+        <property name="configLocation" value="classpath:mybatils-config.xml"/>
+        <!--扫描entity包，使用别名-->
+        <property name="typeAliasesPackage" value="cn.stt.magnetic.po"/>
+        <!--扫描sql配置文件：mapper需要的xml文件-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+    </bean>
+
+    <!--4、配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--注入sqlSessionFactory
+            使用sqlSessionFactoryBeanName，目的是使用mapper的使用初始化，
+            防止sqlSessionFactory在未加载jdbc.properties时初始化报错
+        -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--给出需要Dao接口接口包-->
+        <property name="basePackage" value="cn.stt.magnetic.dao"/>
+    </bean>
+
+    <!--RedisDao
+    <bean id="redisDao" class="cn.stt.seckillsys.dao.cache.RedisDao">
+        <constructor-arg index="0" value="localhost"></constructor-arg>
+        <constructor-arg index="1" value="6379"></constructor-arg>
+    </bean>
+    -->
+
+</beans>

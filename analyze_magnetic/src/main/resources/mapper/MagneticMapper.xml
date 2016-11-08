@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stt.magnetic.dao.MagneticMapper">
+  <resultMap id="BaseResultMap" type="cn.stt.magnetic.po.Magnetic">
+    <id column="hash" jdbcType="VARCHAR" property="hash" />
+    <result column="sha1" jdbcType="VARCHAR" property="sha1" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    hash, sha1
+  </sql>
+  <select id="selectByParams" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from magnetic
+    <where>
+      <if test="paramMap.hash != null and paramMap.hash != '' " >
+        hash = #{paramMap.hash,jdbcType=VARCHAR}
+      </if>
+      <if test="paramMap.sha1 != null and paramMap.sha1 != '' ">
+        sha1 = #{paramMap.sha1,jdbcType=VARCHAR}
+      </if>
+    </where>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from magnetic
+    where hash = #{hash,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from magnetic
+    where hash = #{hash,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.stt.magnetic.po.Magnetic">
+    insert into magnetic (hash, sha1)
+    values (#{hash,jdbcType=VARCHAR}, #{sha1,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.stt.magnetic.po.Magnetic">
+    insert into magnetic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="hash != null">
+        hash,
+      </if>
+      <if test="sha1 != null">
+        sha1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="hash != null">
+        #{hash,jdbcType=VARCHAR},
+      </if>
+      <if test="sha1 != null">
+        #{sha1,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.stt.magnetic.po.Magnetic">
+    update magnetic
+    <set>
+      <if test="sha1 != null">
+        sha1 = #{sha1,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hash = #{hash,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.stt.magnetic.po.Magnetic">
+    update magnetic
+    set sha1 = #{sha1,jdbcType=VARCHAR}
+    where hash = #{hash,jdbcType=VARCHAR}
+  </update>
+</mapper>
