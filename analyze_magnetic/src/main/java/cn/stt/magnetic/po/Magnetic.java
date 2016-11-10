@@ -1,9 +1,22 @@
 package cn.stt.magnetic.po;
 
-public class Magnetic {
+import java.io.Serializable;
+
+public class Magnetic implements Serializable{
+    private static final long serialVersionUID = 6495627062268068586L;
     private String hash;
 
     private String sha1;
+
+    private int status;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
 
     public String getHash() {
         return hash;
@@ -19,5 +32,14 @@ public class Magnetic {
 
     public void setSha1(String sha1) {
         this.sha1 = sha1 == null ? null : sha1.trim();
+    }
+
+    @Override
+    public String toString() {
+        return "Magnetic{" +
+                "hash='" + hash + '\'' +
+                ", sha1='" + sha1 + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

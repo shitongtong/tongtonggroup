@@ -1,13 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cn.stt.magnetic.dao.MagneticMapper">
+<mapper namespace="cn.stt.magnetic.dao.MagneticDao">
   <resultMap id="BaseResultMap" type="cn.stt.magnetic.po.Magnetic">
     <id column="hash" jdbcType="VARCHAR" property="hash" />
     <result column="sha1" jdbcType="VARCHAR" property="sha1" />
+    <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
   <sql id="Base_Column_List">
-    hash, sha1
+    hash, sha1,status
   </sql>
+  <select id="selectListByParams" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from magnetic
+    <where>
+      <if test="paramMap.hash != null and paramMap.hash != '' " >
+        hash = #{paramMap.hash,jdbcType=VARCHAR}
+      </if>
+      <if test="paramMap.sha1 != null and paramMap.sha1 != '' ">
+        and sha1 = #{paramMap.sha1,jdbcType=VARCHAR}
+      </if>
+      <if test="paramMap.status != null">
+        and status = #{paramMap.status,jdbcType=INTEGER}
+      </if>
+    </where>
+    limit #{paramMap.offset},#{paramMap.limit}
+  </select>
   <select id="selectByParams" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
@@ -17,7 +35,10 @@
         hash = #{paramMap.hash,jdbcType=VARCHAR}
       </if>
       <if test="paramMap.sha1 != null and paramMap.sha1 != '' ">
-        sha1 = #{paramMap.sha1,jdbcType=VARCHAR}
+        and sha1 = #{paramMap.sha1,jdbcType=VARCHAR}
+      </if>
+      <if test="paramMap.status != null and paramMap.status != '' ">
+        and status = #{paramMap.status,jdbcType=INTEGER}
       </if>
     </where>
   </select>
@@ -67,5 +88,10 @@
     update magnetic
     set sha1 = #{sha1,jdbcType=VARCHAR}
     where hash = #{hash,jdbcType=VARCHAR}
+  </update>
+  <update id="updateStatus" >
+    update magnetic
+    set status = #{status,jdbcType=INTEGER}
+    where hash = #{hash,jdbcType=VARCHAR} and sha1 = #{sha1,jdbcType=VARCHAR}
   </update>
 </mapper>

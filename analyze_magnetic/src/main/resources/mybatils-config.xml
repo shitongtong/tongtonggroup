@@ -15,8 +15,12 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
 
-    <plugins><!--cn.stt.pager.mybatis.interceptor.PaginationInterceptor-->
-        <plugin interceptor="com.github.pagehelper.PageHelper" >
+    <!--
+    cn.stt.pager.mybatis.interceptor.PaginationInterceptor
+    com.github.pagehelper.PageHelper
+    -->
+    <plugins>
+        <plugin interceptor="cn.stt.magnetic.utils.pager.mybatis.interceptor.PaginationInterceptor">
             <property name="dialect" value="mysql"/>
         </plugin>
     </plugins>

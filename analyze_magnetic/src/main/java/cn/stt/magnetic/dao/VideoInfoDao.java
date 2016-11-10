@@ -2,14 +2,14 @@ package cn.stt.magnetic.dao;
 
 import cn.stt.magnetic.po.VideoInfo;
 
-public interface VideoInfoMapper {
-    int deleteByPrimaryKey(String hash);
+public interface VideoInfoDao {
+    int deleteByPrimaryKey(Integer id);
 
     int insert(VideoInfo record);
 
     int insertSelective(VideoInfo record);
 
-    VideoInfo selectByPrimaryKey(String hash);
+    VideoInfo selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(VideoInfo record);
 

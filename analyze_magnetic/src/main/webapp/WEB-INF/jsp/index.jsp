@@ -11,11 +11,13 @@
     <title>qqq</title>
 </head>
 <body>
-<input type="button" onclick="toUrl()" />
+<input type="button" onclick="toUrl()" />跳
 <script type="text/javascript">
     function toUrl() {
+        var istz = getCookie("com_cookie"); //获取cookie
+        alert(istz);
         setCookie("com_cookie", "db0c0890", 10); //设置cookie
-        location.href = "h.html"; //跳转到指定链接
+        location.href = "http://xfsh.ctfs.ftn.qq.com/ftn_handler/f352539a4ca4a88fd38c09c4555c0ffc7f203b9d6ec94cf1fd95374722fb7c4623f1dd7a7a2e109307cc3acd7cd8ceb94f04510c6ebb89efe8d3e84c394744d1/m.mkv"; //跳转到指定链接
     }
 
     //设置cookie
