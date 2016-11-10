@@ -5,10 +5,13 @@
                         http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1"
          metadata-complete="true">
-    <!--&lt;!&ndash; 修改servlet版本为3.1&ndash;&gt;
-
-    &lt;!&ndash; 配置DispatcherServlet &ndash;&gt;
+    <!-- 修改servlet版本为3.1-->
     <servlet>
+        <servlet-name>wechatServlet</servlet-name>
+        <servlet-class>cn.stt.servlet.WechatServlet</servlet-class>
+    </servlet>
+    <!-- 配置DispatcherServlet -->
+    <!--<servlet>
         <servlet-name>seckillsys-dispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         &lt;!&ndash; 配置springMVC需要加载的配置文件
@@ -19,15 +22,19 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:spring/spring-*.xml</param-value>
         </init-param>
-    </servlet>
-    &lt;!&ndash; 映射请求&ndash;&gt;
+    </servlet>-->
+    <!-- 映射请求-->
     <servlet-mapping>
+        <servlet-name>wechatServlet</servlet-name>
+        <url-pattern>/wx.do</url-pattern>
+    </servlet-mapping>
+    <!--<servlet-mapping>
         <servlet-name>seckillsys-dispatcherServlet</servlet-name>
         &lt;!&ndash; 默认匹配所有的请求&ndash;&gt;
         <url-pattern>/</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
-    <filter>
+    <!--<filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
