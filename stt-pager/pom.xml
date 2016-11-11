@@ -31,7 +31,7 @@
 		</dependency>
 		<!-- MyBatis end -->
 		<!-- LOGGING begin -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
@@ -41,34 +41,34 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency>-->
 		<!-- common-logging 实际调用slf4j -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${slf4j.version}</version>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency>-->
 		<!-- java.util.logging 实际调用slf4j -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>jul-to-slf4j</artifactId>
 			<version>${slf4j.version}</version>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency>-->
 		<!-- log4j -->
-		<dependency>
+		<!--<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
-		</dependency>
+		</dependency>-->
 		<!-- log4jdbc -->
-		<dependency>
+		<!--<dependency>
 			<groupId>org.lazyluke</groupId>
 			<artifactId>log4jdbc-remix</artifactId>
 			<version>0.2.7</version>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency>-->
 		<!-- GENERAL UTILS begin -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>

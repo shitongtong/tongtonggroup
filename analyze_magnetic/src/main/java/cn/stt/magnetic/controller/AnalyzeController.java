@@ -45,16 +45,16 @@ public class AnalyzeController {
     @Autowired
     private VideoInfoService videoInfoService;
 
-    @RequestMapping(value = "/index",method = RequestMethod.GET)
-    public String index(){
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String index() {
         System.out.println("aaa");
         return "index";
     }
 
     @RequestMapping("/analyze")
     public void analyze(HttpServletRequest request, HttpServletResponse response
-                        , @RequestParam(value = "pageNo",defaultValue = "1") int pageNo
-                        , @RequestParam(value = "pageSize",defaultValue = "100") int pageSize) {
+            , @RequestParam(value = "pageNo", defaultValue = "1") int pageNo
+            , @RequestParam(value = "pageSize", defaultValue = "100") int pageSize) {
 //        String hash = request.getParameter("hash");
 //        String strindex = request.getParameter("index");
 
@@ -70,7 +70,7 @@ public class AnalyzeController {
             paramMap.put("offset", 0);
             paramMap.put("limit", 100);
             List<Magnetic> magneticList = magneticService.selectListByParams(paramMap);
-            if (magneticList == null || magneticList.size() == 0){
+            if (magneticList == null || magneticList.size() == 0) {
                 logger.info("解析完成,程序结束！");
                 System.exit(0);
             }
@@ -90,7 +90,7 @@ public class AnalyzeController {
                 if (hash != null) {
                     String url = "http://i.vod.xunlei.com/req_subBT/info_hash/" + hash + "/req_num/1000/req_offset/0";
                     String xunleiUrl = HttpUtil.doGet(url);
-                    logger.info("xunleiUrl={}",xunleiUrl);
+                    logger.info("xunleiUrl={}", xunleiUrl);
                     JSONObject magnetJson = null;
                     String record_num = "";
                     try {
@@ -109,12 +109,12 @@ public class AnalyzeController {
                                     long file_size = filelist.getLong("file_size");
                                     if (ciliindex != -1) {
                                         if (index != ciliindex) {
-                                            magneticService.updateStatus(torrent_hash,sha,2);
+                                            magneticService.updateStatus(torrent_hash, sha, 2);
                                             continue;
                                         }
                                     }
                                     if (file_size == 0) {
-                                        magneticService.updateStatus(torrent_hash,sha,2);
+                                        magneticService.updateStatus(torrent_hash, sha, 2);
                                         logger.info("警告错误：1" + hash + "_" + index + "_" + file_size + "_" + file_size);
                                         continue;
                                     }
@@ -126,7 +126,7 @@ public class AnalyzeController {
                                     params.put("filehash", file_hash);
                                     params.put("filename", "m.mkv");
                                     String get_http_url = HttpUtil.doPost(getxuanfengurl, params);
-                                    logger.info("get_http_url={}",get_http_url);
+                                    logger.info("get_http_url={}", get_http_url);
 
                                     String com_cookie = null;
                                     String patCookie = "\"com_cookie\":\"(.*?)\"";
@@ -146,13 +146,13 @@ public class AnalyzeController {
                                         code = buffer.toString();
                                     }
                                     if (code == null || code.isEmpty()) {
-                                        magneticService.updateStatus(torrent_hash,sha,2);
+                                        magneticService.updateStatus(torrent_hash, sha, 2);
                                         logger.error(hash + "_" + index + "寻找真实地址出错" + get_http_url);
                                         continue;
                                     }
 
                                     if (com_cookie.compareTo("00000000") == 0) {
-                                        magneticService.updateStatus(torrent_hash,sha,2);
+                                        magneticService.updateStatus(torrent_hash, sha, 2);
                                         logger.error("FTN5K=00000000" + hash + "_" + index + get_http_url);
                                         continue;
                                     }
@@ -193,39 +193,39 @@ public class AnalyzeController {
                                     videoInfo.setTorrentHash(hash);
                                     videoInfo.setTorrentIndex(index);
                                     videoInfo.setHash(file_hash);
-                                    videoInfo.setUrl(code+"/m.mkv");
+                                    videoInfo.setUrl(code + "/m.mkv");
                                     videoInfo.setCookie(com_cookie);
                                     String name = URLDecoder.decode(filelist.getString("name"), "UTF-8");
                                     videoInfo.setName(name);
-                                    videoInfo.setSize(file_size+"");
-                                    if (name.contains("【无效链接】")){
+                                    videoInfo.setSize(file_size + "");
+                                    if (name.contains("【无效链接】")) {
                                         videoInfo.setValid(0);
-                                    }else{
+                                    } else {
                                         videoInfo.setValid(1);
                                     }
 
                                     int i1 = videoInfoService.addVideoInfo(videoInfo);
-                                    if (i1 > 0){
-                                        magneticService.updateStatus(torrent_hash,sha,1);
+                                    if (i1 > 0) {
+                                        magneticService.updateStatus(torrent_hash, sha, 1);
                                         logger.info("插入数据库" + hash + "_" + index);
                                     }
                                 }
                             }
                         }
                     } catch (Exception e) {
-                        logger.error(e.getMessage(),e);
-                        logger.error("count=="+count);
+                        logger.error(e.getMessage(), e);
+                        logger.error("count==" + count);
                         System.exit(0);
                     }
                 }
             }
-            logger.info("count=="+count);
+            logger.info("count==" + count);
         }
     }
 
     @RequestMapping("/play")
-    public void play(HttpServletRequest request, HttpServletResponse response){
-        Cookie cookie = new Cookie("com_cookie","db0c0890");
+    public void play(HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = new Cookie("com_cookie", "db0c0890");
         response.addCookie(cookie);
 
     }

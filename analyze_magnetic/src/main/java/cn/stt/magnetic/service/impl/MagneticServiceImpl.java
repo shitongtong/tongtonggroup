@@ -3,7 +3,7 @@ package cn.stt.magnetic.service.impl;
 import cn.stt.magnetic.dao.MagneticDao;
 import cn.stt.magnetic.po.Magnetic;
 import cn.stt.magnetic.service.MagneticService;
-import cn.stt.magnetic.utils.pager.mybatis.Page;
+import cn.stt.pager.mybatis.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

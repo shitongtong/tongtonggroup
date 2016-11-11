@@ -18,9 +18,10 @@
     <!--
     cn.stt.pager.mybatis.interceptor.PaginationInterceptor
     com.github.pagehelper.PageHelper
+    cn.stt.magnetic.utils.pager.mybatis.interceptor.PaginationInterceptor
     -->
     <plugins>
-        <plugin interceptor="cn.stt.magnetic.utils.pager.mybatis.interceptor.PaginationInterceptor">
+        <plugin interceptor="cn.stt.pager.mybatis.interceptor.PaginationInterceptor">
             <property name="dialect" value="mysql"/>
         </plugin>
     </plugins>

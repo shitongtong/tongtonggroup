@@ -1,7 +1,7 @@
 package cn.stt.magnetic.dao;
 
 import cn.stt.magnetic.po.Magnetic;
-import cn.stt.magnetic.utils.pager.mybatis.Page;
+import cn.stt.pager.mybatis.Page;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

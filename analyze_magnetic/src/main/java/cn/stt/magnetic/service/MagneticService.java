@@ -1,7 +1,7 @@
 package cn.stt.magnetic.service;
 
 import cn.stt.magnetic.po.Magnetic;
-import cn.stt.magnetic.utils.pager.mybatis.Page;
+import cn.stt.pager.mybatis.Page;
 
 import java.util.List;
 import java.util.Map;
