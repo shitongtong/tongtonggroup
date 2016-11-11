@@ -6,6 +6,6 @@ package cn.stt.sprider;
 public class StartApp {
 
     public static void main(String[] args) {
-        
+
     }
 }
