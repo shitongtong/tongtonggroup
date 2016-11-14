@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="false" debug="false">
 
-	<contextName>yispider</contextName>  
+	<contextName>novel-sprider</contextName>
 	
     <!-- 控制台输出 -->
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
@@ -11,7 +11,7 @@
     </appender>
 
     <!-- 时间滚动输出 level为 DEBUG 日志 -->
-    <appender name="file-info"
+    <!--<appender name="file-info"
         class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>INFO</level>
@@ -19,7 +19,7 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>logs/spider.%d{yyyy-MM-dd-HHmmss}.log</FileNamePattern>
+            <FileNamePattern>logs/spider-info.%d{yyyy-MM-dd-HHmmss}.log</FileNamePattern>
             <MaxHistory>30</MaxHistory>
         </rollingPolicy>
         <encoder>
@@ -27,7 +27,7 @@
         </encoder>
     </appender>
 
-    <!-- 时间滚动输出 level为 ERROR 日志 -->
+    &lt;!&ndash; 时间滚动输出 level为 ERROR 日志 &ndash;&gt;
     <appender name="file-error"
         class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
@@ -36,11 +36,21 @@
             <onMismatch>DENY</onMismatch>
         </filter>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>logs/error.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>logs/spider-error.%d{yyyy-MM-dd-HHmmss}.log</FileNamePattern>
             <MaxHistory>30</MaxHistory>
         </rollingPolicy>
         <encoder>
             <pattern>%date [%thread] %-5level %logger{80} - %msg%n</pattern>
+        </encoder>
+    </appender>-->
+
+    <appender name="DailyRollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--<fileNamePattern>logs/spider.%d{yyyy-MM-dd_HHmmss}.log</fileNamePattern>-->
+            <fileNamePattern>logs/spider.%d{yyyy-MM-dd}.log</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{MM-dd HH:mm:ss} [%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
 
@@ -57,10 +67,11 @@
         <level value="TRACE" />
     </logger>
 
-    <root level="INFO">
+    <root level="debug">
         <appender-ref ref="stdout" />
-        <appender-ref ref="file-info" />
-        <appender-ref ref="file-error" />
+        <!--<appender-ref ref="file-info" />-->
+        <!--<appender-ref ref="file-error" />-->
+        <appender-ref ref="DailyRollingFile" />
     </root>
 
 </configuration>
