@@ -8,7 +8,7 @@ package cn.stt.sprider.loader;
 import cn.stt.sprider.enums.ProgramEnum;
 import cn.stt.sprider.exception.BaseException;
 import cn.stt.sprider.loader.impl.JieQiConfigLoader;
-import cn.stt.sprider.loader.impl.MinimalistConfigLoader;
+import cn.stt.sprider.loader.impl.JijianConfigLoader;
 import cn.stt.sprider.loader.impl.YiDuConfigLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +28,8 @@ public class SimpleLoaderFactory {
                 loader = new YiDuConfigLoader();
             } else if(e == ProgramEnum.JIEQI) {
                 loader = new JieQiConfigLoader();
-            }else if(e == ProgramEnum.MINIMALIST){
-                loader = new MinimalistConfigLoader();
+            }else if(e == ProgramEnum.jijian){
+                loader = new JijianConfigLoader();
             }
 
             logger.debug("产生加载策略： " + e.getName());

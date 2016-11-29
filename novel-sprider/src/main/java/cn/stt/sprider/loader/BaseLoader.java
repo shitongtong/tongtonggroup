@@ -19,7 +19,10 @@ public class BaseLoader {
 
     public static void loadInitParam() {
         logger.debug("开始加载采集参数...");
-        GlobalConfig.USER_AGENT = UserAgentEnum.parseEnum(GlobalConfig.collect.getString("userAgent"));
+        String userAgent = GlobalConfig.collect.getString("userAgent");
+        GlobalConfig.USER_AGENT = UserAgentEnum.parseEnum(userAgent);
+        logger.debug("userAgent=={}",userAgent);
+
     }
 
     public void loadCategory() throws ConfigurationException {

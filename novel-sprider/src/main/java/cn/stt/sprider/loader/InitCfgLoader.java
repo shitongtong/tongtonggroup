@@ -79,7 +79,13 @@ public class InitCfgLoader {
         BufferedReader reader = null;
 
         try {
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(FileUtil.locateAbsolutePathFromClasspath("category.ini")), "UTF-8"));
+//            reader = new BufferedReader(new InputStreamReader(new FileInputStream(FileUtil.locateAbsolutePathFromClasspath("category.ini")), "UTF-8"));
+
+            //返回读取指定资源的输入流
+            ClassLoader loader = Thread.currentThread().getContextClassLoader();
+            InputStream is = loader.getResourceAsStream("category.ini");
+            reader = new BufferedReader(new InputStreamReader(is,"UTF-8"));
+
             String e = null;
             boolean grade = true;
 

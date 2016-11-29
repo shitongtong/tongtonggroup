@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RuleConfigInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ <GetSiteName>
+  <RegexName>GetSiteName</RegexName>
+  <Pattern>起点中文网</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </GetSiteName>
+ <NovelSearch_GetNovelName>
+  <RegexName>NovelSearch_GetNovelName</RegexName>
+  <Pattern>《&lt;a  href="http://www.qidian.com/Book/\d*.aspx" title=".+?" target="_blank"&gt;&lt;strong&gt;(.+?)&lt;/strong&gt;&lt;/a&gt;》</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelSearch_GetNovelName>
+ <GetSiteCharset>
+  <RegexName>GetSiteCharset</RegexName>
+  <Pattern>UTF-8</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </GetSiteCharset>
+ <NovelSearch_GetNovelKey>
+  <RegexName>NovelSearch_GetNovelKey</RegexName>
+  <Pattern>《&lt;a  href="http://www.qidian.com/Book/(\d*).aspx" title=".+?" target="_blank"&gt;&lt;strong&gt;.+?&lt;/strong&gt;&lt;/a&gt;》</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelSearch_GetNovelKey>
+ <NovelDefaultCoverUrl>
+  <RegexName>NovelDefaultCoverUrl</RegexName>
+  <Pattern/>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelDefaultCoverUrl>
+ <NovelIntro>
+  <RegexName>NovelIntro</RegexName>
+  <Pattern>&lt;span itemprop="description"&gt;((.|\n)+?)&lt;/span&gt;</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelIntro>
+ <NovelName>
+  <RegexName>NovelName</RegexName>
+  <Pattern>&lt;h1 itemprop="name"&gt;((.|\n)+?)&lt;/h1&gt;</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelName>
+ <PubChapter_GetChapterKey>
+  <RegexName>PubChapter_GetChapterKey</RegexName>
+  <Pattern>&lt;a.+?href=\"http://.+?\.qidian.com/BookReader/.+?,(\d*).aspx" title='[\s\S]+?'.+?&gt;[&lt;span itemprop='headline'&gt;]?.+?[&lt;/span&gt;]?&lt;/a&gt;&lt;/li&gt;</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </PubChapter_GetChapterKey>
+ <PubIndexUrl>
+  <RegexName>PubIndexUrl</RegexName>
+  <Pattern>http://read.qidian.com/BookReader/{NovelKey}.aspx</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </PubIndexUrl>
+ <SmallSort>
+  <RegexName>SmallSort</RegexName>
+  <Pattern>&lt;span itemprop="genre"&gt;(.+?)&lt;/span&gt;</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </SmallSort>
+ <PubChapterName>
+  <RegexName>PubChapterName</RegexName>
+  <Pattern>&lt;a.+?href=\"http://.+?\.qidian.com/BookReader/.+?,\d*.aspx" title='[\s\S]+?'.+?&gt;[&lt;span itemprop='headline'&gt;]?(.+?)[&lt;/span&gt;]?&lt;/a&gt;&lt;/li&gt;</Pattern>
+  <Method/>
+  <FilterPattern>&lt;/span</FilterPattern>
+  <Options/>
+ </PubChapterName>
+ <NovelList_GetNovelKey>
+  <RegexName>NovelList_GetNovelKey</RegexName>
+  <Pattern>&lt;a target="_blank" href="http://www.qidian.com/Book/(\d*).aspx"</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelList_GetNovelKey>
+ <NovelSearchUrl>
+  <RegexName>NovelSearchUrl</RegexName>
+  <Pattern>http://big.qidian.com/search?keyword={SearchNovelName}</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelSearchUrl>
+ <NovelDegree>
+  <RegexName>NovelDegree</RegexName>
+  <Pattern>&lt;span itemprop="updataStatus"&gt;(.+?)&lt;/span&gt;</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelDegree>
+ <NovelUrl>
+  <RegexName>NovelUrl</RegexName>
+  <Pattern>http://www.qidian.com/Book/{NovelKey}.aspx</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelUrl>
+ <NovelKeyword>
+  <RegexName>NovelKeyword</RegexName>
+  <Pattern>&lt;h1 itemprop="name"&gt;((.|\n)+?)&lt;/h1&gt;</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelKeyword>
+ <TestSearchNovelName>
+  <RegexName>TestSearchNovelName</RegexName>
+  <Pattern>完美世界</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </TestSearchNovelName>
+ <RuleVersion>
+  <RegexName>RuleVersion</RegexName>
+  <Pattern>1</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </RuleVersion>
+ <NovelListUrl>
+  <RegexName>NovelListUrl</RegexName>
+  <Pattern>http://top.qidian.com/Book/TopDetail.aspx?TopType=3&amp;Category=-1
+http://top.qidian.com/Book/TopDetail.aspx?TopType=3&amp;Category=-1&amp;PageIndex=2
+http://top.qidian.com/Book/TopDetail.aspx?TopType=3&amp;Category=-1&amp;PageIndex=3
+http://top.qidian.com/Book/TopDetail.aspx?TopType=3&amp;Category=-1&amp;PageIndex=4
+http://top.qidian.com/Book/TopDetail.aspx?TopType=3&amp;Category=-1&amp;PageIndex=5
+http://top.qidian.com/Book/TopDetail.aspx?TopType=3&amp;Category=-1&amp;PageIndex=6
+http://top.qidian.com/Book/TopDetail.aspx?TopType=3&amp;Category=-1&amp;PageIndex=7
+http://top.qidian.com/Book/TopDetail.aspx?TopType=3&amp;Category=-1&amp;PageIndex=8
+http://top.qidian.com/Book/TopDetail.aspx?TopType=3&amp;Category=-1&amp;PageIndex=9
+http://top.qidian.com/Book/TopDetail.aspx?TopType=1
+http://top.qidian.com/Book/TopDetail.aspx?TopType=1&amp;PageIndex=2
+http://top.qidian.com/Book/TopDetail.aspx?TopType=1&amp;PageIndex=3
+http://top.qidian.com/Book/TopDetail.aspx?TopType=1&amp;PageIndex=4
+http://top.qidian.com/Book/TopDetail.aspx?TopType=29
+http://top.qidian.com/Book/TopDetail.aspx?TopType=29&amp;PageIndex=2
+http://top.qidian.com/Book/TopDetail.aspx?TopType=29&amp;PageIndex=3
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=2
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=3
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=4
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=5
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=6
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=7
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=8
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=9
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=10
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=11
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=12
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=13
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=14
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=15
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=16
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=17
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=18
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=19
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=20
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=21
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=22
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=23
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=24
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=25
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=26
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=27
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=28
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=29
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=30
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=31
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=32
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=33
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=34
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=35
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=36
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=37
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=38
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=39
+http://top.qidian.com/Book/TopDetail.aspx?TopType=4&amp;PageIndex=40</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelListUrl>
+ <NovelInfoExtra>
+  <RegexName>NovelInfoExtra</RegexName>
+  <Pattern>&lt;span itemprop='acticleBody'&gt;([\s\S]+?)&lt;/span&gt;</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelInfoExtra>
+ <NovelInfo_GetNovelPubKey>
+  <RegexName>NovelInfo_GetNovelPubKey</RegexName>
+  <Pattern/>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelInfo_GetNovelPubKey>
+ <NovelCover>
+  <RegexName>NovelCover</RegexName>
+  <Pattern>&lt;img itemprop="image" src="(.+?)"</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelCover>
+ <GetSiteUrl>
+  <RegexName>GetSiteUrl</RegexName>
+  <Pattern>http://read.qidian.com</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </GetSiteUrl>
+ <PubContentText>
+  <RegexName>PubContentText</RegexName>
+  <Pattern/>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </PubContentText>
+ <PubContentUrl>
+  <RegexName>PubContentUrl</RegexName>
+  <Pattern/>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </PubContentUrl>
+ <NovelAuthor>
+  <RegexName>NovelAuthor</RegexName>
+  <Pattern>&lt;span itemprop="name"&gt;((.|\n)+?)&lt;/span&gt;</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </NovelAuthor>
+ <LagerSort>
+  <RegexName>LagerSort</RegexName>
+  <Pattern>起点小说首页&lt;/a&gt;.+?&lt;a href=".+?"&gt;((.|\n)+?)&lt;/a&gt;</Pattern>
+  <Method/>
+  <FilterPattern/>
+  <Options/>
+ </LagerSort>
+</RuleConfigInfo>

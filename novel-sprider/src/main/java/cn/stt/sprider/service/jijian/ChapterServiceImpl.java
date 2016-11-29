@@ -3,7 +3,7 @@
 // (powered by Fernflower decompiler)
 //
 
-package cn.stt.sprider.service.minimalist;
+package cn.stt.sprider.service.jijian;
 
 import cn.stt.sprider.db.DBPool;
 import cn.stt.sprider.db.YiQueryRunner;
@@ -34,28 +34,31 @@ public class ChapterServiceImpl extends BaseService implements IChapterService {
     }
 
     public Number save(ChapterEntity chapter) throws SQLException {
-        Connection conn = DBPool.getInstance().getConnection();
+//        Connection conn = DBPool.getInstance().getConnection();
+        Connection conn = DBPool.getInstance().getDruidConnection();
         YiQueryRunner queryRunner = new YiQueryRunner(true);
-        String sql = "INSERT INTO t_chapter( articleno, articlename, chaptertype, chaptername,         size, isvip, postdate) VALUES ( ?, ?, ?, ?, ?, ?, ?) ;";
-        Object[] params = new Object[]{chapter.getNovelNo(), chapter.getNovelName(), Integer.valueOf(0), chapter.getChapterName(), chapter.getSize(), Boolean.FALSE, new Timestamp(System.currentTimeMillis())};
-        return (Number)queryRunner.save(conn, sql, params);
+        String sql = "INSERT INTO t_chapter( articleno, articlename, chaptertype, chaptername,size, isvip, postdate) VALUES ( ?, ?, ?, ?, ?, ?, ?) ;";
+        Object[] params = new Object[]{chapter.getNovelNo(), chapter.getNovelName(), Integer.valueOf(0), chapter.getChapterName(), chapter.getSize(), 0, new Timestamp(System.currentTimeMillis())};
+        return (Number) queryRunner.save(conn, sql, params);
     }
 
     public Map<String, Object> getTotalInfo(Number novelno) throws SQLException {
-        Connection conn = DBPool.getInstance().getConnection();
+//        Connection conn = DBPool.getInstance().getConnection();
+        Connection conn = DBPool.getInstance().getDruidConnection();
         YiQueryRunner queryRunner = new YiQueryRunner(true);
         String sql = "SELECT SUM(size) as size, count(*) as count FROM t_chapter WHERE articleno = ?";
-        return (Map)queryRunner.query(conn, sql, new MapHandler(), new Object[]{novelno});
+        return (Map) queryRunner.query(conn, sql, new MapHandler(), new Object[]{novelno});
     }
 
     public int getChapterOrder(ChapterEntity chapter) throws SQLException {
-        Connection conn = DBPool.getInstance().getConnection();
+//        Connection conn = DBPool.getInstance().getConnection();
+        Connection conn = DBPool.getInstance().getDruidConnection();
         YiQueryRunner queryRunner = new YiQueryRunner(true);
         boolean order = false;
         String sql = "select max(chapterno) from t_chapter WHERE articleno = ?";
         Object obj = queryRunner.query(conn, sql, new ScalarHandler(), new Object[]{chapter.getNovelNo()});
         int order1;
-        if(obj == null) {
+        if (obj == null) {
             order1 = 1;
         } else {
             order1 = ObjectUtil.obj2Int(obj).intValue();
@@ -65,7 +68,8 @@ public class ChapterServiceImpl extends BaseService implements IChapterService {
     }
 
     public boolean exist(ChapterEntity chapter) throws SQLException {
-        Connection conn = DBPool.getInstance().getConnection();
+//        Connection conn = DBPool.getInstance().getConnection();
+        Connection conn = DBPool.getInstance().getDruidConnection();
         YiQueryRunner queryRunner = new YiQueryRunner(true);
         String sql = "select count(*) from t_chapter where articleno = ? and chaptername=?";
         Object count = queryRunner.query(conn, sql, new ScalarHandler(), new Object[]{chapter.getNovelNo(), chapter.getChapterName()});
@@ -73,27 +77,29 @@ public class ChapterServiceImpl extends BaseService implements IChapterService {
     }
 
     public ChapterEntity get(ChapterEntity chapter, int i) throws SQLException {
-        Connection conn = DBPool.getInstance().getConnection();
+//        Connection conn = DBPool.getInstance().getConnection();
+        Connection conn = DBPool.getInstance().getDruidConnection();
         YiQueryRunner queryRunner = new YiQueryRunner(true);
         String sql = "select * from t_chapter where 1=1";
-        if(i == -1) {
+        if (i == -1) {
             sql = sql + " and chapterno < ? order by chapterno desc limit 1";
-        } else if(i == 1) {
+        } else if (i == 1) {
             sql = sql + " and chapterno > ? order by chapterno asc limit 1";
         }
 
-        return (ChapterEntity)queryRunner.query(conn, sql, new ChapterServiceImpl.ChapterResultSetHandler());
+        return (ChapterEntity) queryRunner.query(conn, sql, new ChapterServiceImpl.ChapterResultSetHandler());
     }
 
     public List<ChapterEntity> getChapterList(NovelEntity novel) throws SQLException {
-        Connection conn = DBPool.getInstance().getConnection();
+//        Connection conn = DBPool.getInstance().getConnection();
+        Connection conn = DBPool.getInstance().getDruidConnection();
         YiQueryRunner queryRunner = new YiQueryRunner(true);
         String sql = "select * from t_chapter where articleno = ? order by chapterno asc";
-        List linedMap = (List)queryRunner.query(conn, sql, new MapListHandler(), new Object[]{novel.getNovelNo()});
+        List linedMap = (List) queryRunner.query(conn, sql, new MapListHandler(), new Object[]{novel.getNovelNo()});
         ArrayList result = new ArrayList();
 
-        for(int i = 0; i < linedMap.size(); ++i) {
-            Map map = (Map)linedMap.get(i);
+        for (int i = 0; i < linedMap.size(); ++i) {
+            Map map = (Map) linedMap.get(i);
             ChapterEntity chapter = new ChapterEntity();
             chapter.setNovelNo(novel.getNovelNo());
             chapter.setNovelName(novel.getNovelName());
@@ -107,28 +113,31 @@ public class ChapterServiceImpl extends BaseService implements IChapterService {
     }
 
     public ChapterEntity get(Number chapterNo) throws SQLException {
-        Connection conn = DBPool.getInstance().getConnection();
+//        Connection conn = DBPool.getInstance().getConnection();
+        Connection conn = DBPool.getInstance().getDruidConnection();
         YiQueryRunner queryRunner = new YiQueryRunner(true);
         String sql = "SELECT articleno,articlename,chapterno,chaptername,size FROM t_chapter WHERE articleno=?";
-        return (ChapterEntity)queryRunner.query(conn, sql, new ChapterServiceImpl.ChapterResultSetHandler(), new Object[]{chapterNo});
+        return (ChapterEntity) queryRunner.query(conn, sql, new ChapterServiceImpl.ChapterResultSetHandler(), new Object[]{chapterNo});
     }
 
     public ChapterEntity getLasChapter(ChapterEntity chapter) throws SQLException {
-        Connection conn = DBPool.getInstance().getConnection();
+//        Connection conn = DBPool.getInstance().getConnection();
+        Connection conn = DBPool.getInstance().getDruidConnection();
         YiQueryRunner queryRunner = new YiQueryRunner(true);
         String sql = "SELECT articleno,articlename,chapterno,chaptername,size FROM t_chapter WHERE articleno=? order by chapterno desc limit 1 offset 0";
-        return (ChapterEntity)queryRunner.query(conn, sql, new ChapterServiceImpl.ChapterResultSetHandler(), new Object[]{chapter.getNovelNo()});
+        return (ChapterEntity) queryRunner.query(conn, sql, new ChapterServiceImpl.ChapterResultSetHandler(), new Object[]{chapter.getNovelNo()});
     }
 
     public List<ChapterEntity> getDuplicateChapter() throws SQLException {
-        Connection conn = DBPool.getInstance().getConnection();
+//        Connection conn = DBPool.getInstance().getConnection();
+        Connection conn = DBPool.getInstance().getDruidConnection();
         YiQueryRunner queryRunner = new YiQueryRunner(true);
         String sql = "select articleno,chapterno from t_chapter where chapterno in (\tselect min(chapterno) from t_chapter tc inner join ( \t\tselect articleno ,chaptername from t_chapter \t\tgroup by articleno,chaptername having count(1)>1 \t) tc1 \ton tc.chaptername = tc1.chaptername and tc.articleno = tc1.articleno \tgroup by tc.chaptername );";
         ArrayList result = new ArrayList();
-        List chapterList = (List)queryRunner.query(conn, sql, new MapListHandler());
+        List chapterList = (List) queryRunner.query(conn, sql, new MapListHandler());
 
-        for(int i = 0; i < chapterList.size(); ++i) {
-            Map map = (Map)chapterList.get(i);
+        for (int i = 0; i < chapterList.size(); ++i) {
+            Map map = (Map) chapterList.get(i);
             ChapterEntity chapter = new ChapterEntity();
             chapter.setNovelNo(Integer.valueOf(Integer.parseInt(String.valueOf(map.get("articleno")))));
             chapter.setNovelName(String.valueOf(map.get("chaptername")));
@@ -140,20 +149,22 @@ public class ChapterServiceImpl extends BaseService implements IChapterService {
     }
 
     public ChapterEntity getChapterByChapterNameAndNovelNo(ChapterEntity chapter) throws SQLException {
-        Connection conn = DBPool.getInstance().getConnection();
+//        Connection conn = DBPool.getInstance().getConnection();
+        Connection conn = DBPool.getInstance().getDruidConnection();
         YiQueryRunner queryRunner = new YiQueryRunner(true);
         String sql = "SELECT articleno,articlename,chapterno,chaptername,size FROM t_chapter WHERE articleno=? and chaptername=? limit 1 offset 0";
-        return (ChapterEntity)queryRunner.query(conn, sql, new ChapterServiceImpl.ChapterResultSetHandler(), new Object[]{chapter.getNovelNo(), chapter.getChapterName()});
+        return (ChapterEntity) queryRunner.query(conn, sql, new ChapterServiceImpl.ChapterResultSetHandler(), new Object[]{chapter.getNovelNo(), chapter.getChapterName()});
     }
 
     public void delete(List<ChapterEntity> chapters) throws SQLException {
-        Connection conn = DBPool.getInstance().getConnection();
+//        Connection conn = DBPool.getInstance().getConnection();
+        Connection conn = DBPool.getInstance().getDruidConnection();
         YiQueryRunner queryRunner = new YiQueryRunner(true);
         StringBuffer ids = new StringBuffer("\'");
         Iterator var6 = chapters.iterator();
 
-        while(var6.hasNext()) {
-            ChapterEntity sql = (ChapterEntity)var6.next();
+        while (var6.hasNext()) {
+            ChapterEntity sql = (ChapterEntity) var6.next();
             ids.append(sql.getChapterNo() + "\',");
         }
 
@@ -177,7 +188,7 @@ public class ChapterServiceImpl extends BaseService implements IChapterService {
 
         public ChapterEntity handle(ResultSet rs) throws SQLException {
             ChapterEntity chapter = null;
-            if(rs != null && rs.next()) {
+            if (rs != null && rs.next()) {
                 chapter = new ChapterEntity();
             }
 

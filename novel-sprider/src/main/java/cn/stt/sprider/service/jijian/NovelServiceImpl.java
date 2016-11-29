@@ -3,7 +3,7 @@
 // (powered by Fernflower decompiler)
 //
 
-package cn.stt.sprider.service.minimalist;
+package cn.stt.sprider.service.jijian;
 
 import cn.stt.sprider.db.DBPool;
 import cn.stt.sprider.db.YiQueryRunner;
@@ -36,34 +36,41 @@ public class NovelServiceImpl extends BaseService implements INovelService {
         ArrayList params = new ArrayList();
         params.add(new Timestamp(System.currentTimeMillis()));
         StringBuffer sql = new StringBuffer();
-        if(StringUtil.isNotBlank(newNovel.getIntro())) {
+        if (StringUtil.isNotBlank(newNovel.getIntro())) {
             sql.append(" ,intro = ?");
             params.add(newNovel.getIntro());
         }
 
-        if(newNovel.getTopCategory() != null) {
+        if (newNovel.getTopCategory() != null) {
             sql.append(" ,category = ?");
             params.add(newNovel.getTopCategory());
         }
 
-        if(newNovel.getSubCategory() != null) {
+        if (newNovel.getSubCategory() != null) {
             sql.append(" ,subcategory = ?");
             params.add(newNovel.getSubCategory());
         }
 
-        if(newNovel.getFullFlag() != null) {
+        Boolean fullFlag = newNovel.getFullFlag();
+        if ( fullFlag != null) {
             sql.append(" ,fullflag = ?");
-            params.add(newNovel.getFullFlag());
+            if(fullFlag){
+                params.add(1);
+            }else{
+                params.add(0);
+            }
+
+//            params.add(newNovel.getFullFlag());
         }
 
-        if(StringUtil.isNotBlank(newNovel.getKeywords())) {
+        if (StringUtil.isNotBlank(newNovel.getKeywords())) {
             sql.append(" ,keywords = ?");
             params.add(newNovel.getKeywords());
         }
 
         sql.append(" where articleno = ?");
         params.add(novel.getNovelNo());
-        if(sql.length() > 0) {
+        if (sql.length() > 0) {
             this.update(sqlPre + sql.toString(), params.toArray());
         }
 
@@ -77,7 +84,7 @@ public class NovelServiceImpl extends BaseService implements INovelService {
         params.add(novel.getLastChapterName());
         params.add(novel.getChapters());
         params.add(novel.getSize());
-        if(novel != null && novel.getImgFlag() != null) {
+        if (novel != null && novel.getImgFlag() != null) {
             sql = sql + ",imgflag=? ";
             params.add(novel.getImgFlag());
         }
@@ -94,21 +101,29 @@ public class NovelServiceImpl extends BaseService implements INovelService {
     }
 
     public Integer saveNovel(NovelEntity novel) throws SQLException {
-        Connection conn = DBPool.getInstance().getConnection();
+//        Connection conn = DBPool.getInstance().getConnection();
+        Connection conn = DBPool.getInstance().getDruidConnection();
         YiQueryRunner queryRunner = new YiQueryRunner(true);
         String sql = "INSERT INTO t_article(articlename, pinyin, initial ,keywords ,authorid ,author ,category ,subcategory, intro ,fullflag ,postdate,dayvisit, weekvisit, monthvisit,  allvisit, dayvote, weekvote, monthvote, allvote ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
-        Object[] params = new Object[]{novel.getNovelName(), novel.getPinyin(), novel.getInitial(), StringUtil.trimToEmpty(novel.getKeywords()), Integer.valueOf(0), novel.getAuthor(), novel.getTopCategory(), novel.getSubCategory(), novel.getIntro(), novel.getFullFlag(), new Timestamp(System.currentTimeMillis()), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0)};
-        return (Integer)queryRunner.save(conn, sql, params);
+        Integer isFull = null;
+        if (novel.getFullFlag() != null && novel.getFullFlag()){
+            isFull = 1;
+        }else{
+            isFull = 0;
+        }
+        Object[] params = new Object[]{novel.getNovelName(), novel.getPinyin(), novel.getInitial(), StringUtil.trimToEmpty(novel.getKeywords()), Integer.valueOf(0), novel.getAuthor(), novel.getTopCategory(), novel.getSubCategory(), novel.getIntro(), isFull, new Timestamp(System.currentTimeMillis()), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0)};
+        return ((Long) queryRunner.save(conn, sql, params)).intValue();
     }
 
     public NovelEntity find(String novelName) throws SQLException {
-        Connection conn = DBPool.getInstance().getConnection();
+//        Connection conn = DBPool.getInstance().getConnection();
+        Connection conn = DBPool.getInstance().getDruidConnection();
         YiQueryRunner queryRunner = new YiQueryRunner(true);
-        String sql = "select * from t_article where deleteflag=false and articlename=?";
-        return (NovelEntity)queryRunner.query(conn, sql, new ResultSetHandler() {
+        String sql = "select * from t_article where deleteflag=1 and articlename=?";
+        return (NovelEntity) queryRunner.query(conn, sql, new ResultSetHandler() {
             public NovelEntity handle(ResultSet rs) throws SQLException {
                 NovelEntity novel = null;
-                if(rs != null && rs.next()) {
+                if (rs != null && rs.next()) {
                     novel = new NovelEntity();
                     novel.setNovelNo(Integer.valueOf(rs.getInt("articleno")));
                     novel.setNovelName(rs.getString("articlename"));
@@ -131,10 +146,11 @@ public class NovelServiceImpl extends BaseService implements INovelService {
     }
 
     public Number getMaxPinyin(String pinyin) throws SQLException {
-        Connection conn = DBPool.getInstance().getConnection();
+//        Connection conn = DBPool.getInstance().getConnection();
+        Connection conn = DBPool.getInstance().getDruidConnection();
         YiQueryRunner queryRunner = new YiQueryRunner(true);
-        String sql = "SELECT count(*) FROM t_article WHERE pinyin ~ \'^" + pinyin + "\\d*\' ";
+        String sql = "SELECT count(*) FROM t_article WHERE pinyin REGEXP \'^" + pinyin + "\\d*\' ";//mysql正则
 //        String sql = "SELECT count(*) FROM t_article ";
-        return (Number)queryRunner.query(conn, sql, new ScalarHandler());
+        return (Number) queryRunner.query(conn, sql, new ScalarHandler());
     }
 }

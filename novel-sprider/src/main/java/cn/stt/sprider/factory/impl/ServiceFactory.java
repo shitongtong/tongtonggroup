@@ -25,8 +25,8 @@ public class ServiceFactory implements IServiceFactory {
             novelService = new NovelServiceImpl();
         } else if (key.equalsIgnoreCase(ProgramEnum.YIDU.getName())) {
             novelService = new cn.stt.sprider.service.yidu.NovelServiceImpl();
-        } else if (key.equalsIgnoreCase(ProgramEnum.MINIMALIST.getName())) {
-            novelService = new cn.stt.sprider.service.minimalist.NovelServiceImpl();
+        } else if (key.equalsIgnoreCase(ProgramEnum.jijian.getName())) {
+            novelService = new cn.stt.sprider.service.jijian.NovelServiceImpl();
         }
 
         return (INovelService) novelService;

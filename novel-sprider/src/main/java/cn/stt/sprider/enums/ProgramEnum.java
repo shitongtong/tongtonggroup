@@ -8,7 +8,7 @@ package cn.stt.sprider.enums;
 public enum ProgramEnum implements BaseEnum {
     YIDU("yidu"),
     JIEQI("jieqi"),
-    MINIMALIST("minimalist");
+    jijian("jijian");
 
     private String name;
 

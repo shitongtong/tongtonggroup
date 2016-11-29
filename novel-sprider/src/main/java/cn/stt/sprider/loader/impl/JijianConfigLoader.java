@@ -8,8 +8,8 @@ package cn.stt.sprider.loader.impl;
 
 import cn.stt.sprider.loader.ILoader;
 
-public class MinimalistConfigLoader implements ILoader {
-    public MinimalistConfigLoader() {
+public class JijianConfigLoader implements ILoader {
+    public JijianConfigLoader() {
     }
 
     public void load() {
