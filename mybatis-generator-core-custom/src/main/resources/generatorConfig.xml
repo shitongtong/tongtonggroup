@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	
+	<classPathEntry location="E:/m2/repository/mysql/mysql-connector-java/5.1.29/mysql-connector-java-5.1.29.jar" />
+
+  	<context id="MySQLTables" targetRuntime="MyBatis3">
+  
+	    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+	        connectionURL="jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=UTF-8"
+	        userId="root"
+	        password="123456">
+	    </jdbcConnection>
+	
+	    <javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+	    </javaTypeResolver>
+	
+	    <javaModelGenerator targetPackage="pojo" targetProject="mybatis3">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+	    </javaModelGenerator>
+	
+	    <sqlMapGenerator targetPackage="mapper"  targetProject="mybatis3">
+			<property name="enableSubPackages" value="true" />
+	    </sqlMapGenerator>
+	    
+		<!-- <table tableName="user" 
+			enableCountByExample="false" enableUpdateByExample="false"  
+		    enableDeleteByExample="false" enableSelectByExample="false"  
+		    selectByExampleQueryId="false" >
+		    <columnOverride column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
+			<columnOverride column="photo" jdbcType="BLOB" />
+	    </table> -->
+	    
+  	</context>
+</generatorConfiguration>
