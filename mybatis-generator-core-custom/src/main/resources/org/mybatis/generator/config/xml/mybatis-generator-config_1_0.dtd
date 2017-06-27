@@ -51,7 +51,7 @@
   tables.
 -->
 <!ELEMENT context (property*, plugin*, commentGenerator?, (connectionFactory | jdbcConnection), javaTypeResolver?,
-                         javaModelGenerator, sqlMapGenerator?, javaClientGenerator?, table+)>
+                         javaModelGenerator, sqlMapGenerator?, javaClientGenerator?, (table* | database))>
 <!ATTLIST context id ID #REQUIRED
   defaultModelType CDATA #IMPLIED
   targetRuntime CDATA #IMPLIED
@@ -174,6 +174,9 @@
   delimitIdentifiers CDATA #IMPLIED
   delimitAllColumns CDATA #IMPLIED>
 
+<!ELEMENT database (property*)>
+<!ATTLIST database
+        dbname CDATA #REQUIRED>
 <!--
   The columnOverride element is used to change certain attributes of the column
   from their default values.
@@ -244,4 +247,5 @@
 <!ELEMENT commentGenerator (property*)>
 <!ATTLIST commentGenerator
   type CDATA #IMPLIED>
+
   

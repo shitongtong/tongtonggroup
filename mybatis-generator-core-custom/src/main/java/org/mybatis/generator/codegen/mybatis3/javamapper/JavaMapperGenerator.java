@@ -15,12 +15,6 @@
  */
 package org.mybatis.generator.codegen.mybatis3.javamapper;
 
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.mybatis.generator.api.CommentGenerator;
 import org.mybatis.generator.api.dom.java.CompilationUnit;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
@@ -37,14 +31,24 @@ import org.mybatis.generator.codegen.mybatis3.javamapper.elements.InsertSelectiv
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.SelectByExampleWithBLOBsMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.SelectByExampleWithoutBLOBsMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.SelectByPrimaryKeyMethodGenerator;
+import org.mybatis.generator.codegen.mybatis3.javamapper.elements.SelectByUuidMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.UpdateByExampleSelectiveMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.UpdateByExampleWithBLOBsMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.UpdateByExampleWithoutBLOBsMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.UpdateByPrimaryKeySelectiveMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.UpdateByPrimaryKeyWithBLOBsMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.javamapper.elements.UpdateByPrimaryKeyWithoutBLOBsMethodGenerator;
+import org.mybatis.generator.codegen.mybatis3.javamapper.elements.UpdateByUuidSelectiveMethodGenerator;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.XMLMapperGenerator;
 import org.mybatis.generator.config.PropertyRegistry;
+import org.mybatis.generator.internal.util.GeneratorUtil;
+import org.mybatis.generator.internal.util.StringUtility;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
  * @author Jeff Butler
@@ -89,7 +93,7 @@ public class JavaMapperGenerator extends AbstractJavaClientGenerator {
         addCountByExampleMethod(interfaze);
         addDeleteByExampleMethod(interfaze);
         addDeleteByPrimaryKeyMethod(interfaze);
-        addInsertMethod(interfaze);
+//        addInsertMethod(interfaze);
         addInsertSelectiveMethod(interfaze);
         addSelectByExampleWithBLOBsMethod(interfaze);
         addSelectByExampleWithoutBLOBsMethod(interfaze);
@@ -99,7 +103,19 @@ public class JavaMapperGenerator extends AbstractJavaClientGenerator {
         addUpdateByExampleWithoutBLOBsMethod(interfaze);
         addUpdateByPrimaryKeySelectiveMethod(interfaze);
         addUpdateByPrimaryKeyWithBLOBsMethod(interfaze);
-        addUpdateByPrimaryKeyWithoutBLOBsMethod(interfaze);
+//        addUpdateByPrimaryKeyWithoutBLOBsMethod(interfaze);
+
+        /**
+         * 新增两个方法
+         * 如果表字段存在uuid或tableName_uuid则新增
+         */
+        String columnUuidName = GeneratorUtil.getColumnUuidName(introspectedTable);
+        if (StringUtility.stringHasValue(columnUuidName)){
+            addSelectByUuidMethod(interfaze);
+            addUpdateByUuidSelectiveMethod(interfaze);
+        }
+
+
 
         List<CompilationUnit> answer = new ArrayList<CompilationUnit>();
         if (context.getPlugins().clientGenerated(interfaze, null,
@@ -113,6 +129,19 @@ public class JavaMapperGenerator extends AbstractJavaClientGenerator {
         }
 
         return answer;
+    }
+
+    protected void addSelectByUuidMethod(Interface interfaze) {
+        if (introspectedTable.getRules().generateSelectByPrimaryKey()) {
+            AbstractJavaMapperMethodGenerator methodGenerator = new SelectByUuidMethodGenerator(false);
+            initializeAndExecuteGenerator(methodGenerator, interfaze);
+        }
+    }
+    protected void addUpdateByUuidSelectiveMethod(Interface interfaze) {
+        if (introspectedTable.getRules().generateUpdateByPrimaryKeySelective()) {
+            AbstractJavaMapperMethodGenerator methodGenerator = new UpdateByUuidSelectiveMethodGenerator();
+            initializeAndExecuteGenerator(methodGenerator, interfaze);
+        }
     }
 
     protected void addCountByExampleMethod(Interface interfaze) {

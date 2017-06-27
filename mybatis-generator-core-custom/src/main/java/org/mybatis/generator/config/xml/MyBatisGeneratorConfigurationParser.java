@@ -28,15 +28,6 @@
  */
 package org.mybatis.generator.config.xml;
 
-import static org.mybatis.generator.internal.util.StringUtility.isTrue;
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Properties;
-
 import org.mybatis.generator.config.ColumnOverride;
 import org.mybatis.generator.config.ColumnRenamingRule;
 import org.mybatis.generator.config.CommentGeneratorConfiguration;
@@ -58,10 +49,25 @@ import org.mybatis.generator.config.SqlMapGeneratorConfiguration;
 import org.mybatis.generator.config.TableConfiguration;
 import org.mybatis.generator.exception.XMLParserException;
 import org.mybatis.generator.internal.ObjectFactory;
+import org.mybatis.generator.internal.util.ClassloaderUtility;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.Driver;
+import java.sql.ResultSet;
+import java.util.List;
+import java.util.Properties;
+
+import static org.mybatis.generator.internal.util.StringUtility.isTrue;
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
  * This class parses configuration files into the new Configuration API.
@@ -201,9 +207,48 @@ public class MyBatisGeneratorConfigurationParser {
                 parseSqlMapGenerator(context, childNode);
             } else if ("javaClientGenerator".equals(childNode.getNodeName())) { //$NON-NLS-1$
                 parseJavaClientGenerator(context, childNode);
-            } else if ("table".equals(childNode.getNodeName())) { //$NON-NLS-1$
+            }else if ("table".equals(childNode.getNodeName())) { //$NON-NLS-1$
                 parseTable(context, childNode);
+            }else if ("database".equals(childNode.getNodeName())){
+                parseTableDataBase(configuration,context,childNode);
             }
+        }
+    }
+
+    protected void parseTableDataBase(Configuration configuration, Context context, Node childNode) {
+        try {
+            // TODO: 2017/6/26 这里可以像 parseTable中一样获取标签属性来决定生成的方法，此处默认省略，只生成自己所需
+//            Properties attributes = parseAttributes(childNode);
+            List<String> classPathEntries = configuration.getClassPathEntries();
+            Context ctx = configuration.getContexts().get(0);
+            JDBCConnectionConfiguration jdbcConnectionConfiguration = ctx.getJdbcConnectionConfiguration();
+            String connectionURL = jdbcConnectionConfiguration.getConnectionURL();
+            String driverClass = jdbcConnectionConfiguration.getDriverClass();
+            String userId = jdbcConnectionConfiguration.getUserId();
+            String password = jdbcConnectionConfiguration.getPassword();
+            ClassLoader classloader = ClassloaderUtility.getCustomClassloader(classPathEntries);
+            Class<?> clazz = Class.forName(driverClass, true, classloader);
+            Driver driver = (Driver) clazz.newInstance();
+            Properties props = new Properties();
+            props.setProperty("user", userId);
+            props.setProperty("password", password);
+            Connection conn = driver.connect(connectionURL, props);
+            DatabaseMetaData databaseMetaData = conn.getMetaData();
+            ResultSet rs = databaseMetaData.getTables(conn.getCatalog(), conn.getSchema(), null, new String[]{"TABLE"});
+            TableConfiguration tc;
+            while (rs.next()) {
+                tc = new TableConfiguration(context);
+                tc.setSelectByExampleStatementEnabled(false);
+                tc.setDeleteByExampleStatementEnabled(false);
+                tc.setCountByExampleStatementEnabled(false);
+                tc.setUpdateByExampleStatementEnabled(false);
+                String tableName = rs.getString("TABLE_NAME");
+                tc.setTableName(tableName);
+                context.addTableConfiguration(tc);
+            }
+            rs.close();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

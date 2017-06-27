@@ -15,8 +15,6 @@
  */
 package org.mybatis.generator.codegen.mybatis3.xmlmapper;
 
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
 import org.mybatis.generator.api.FullyQualifiedTable;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.Document;
@@ -37,12 +35,18 @@ import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.ResultMapWithou
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.SelectByExampleWithBLOBsElementGenerator;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.SelectByExampleWithoutBLOBsElementGenerator;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.SelectByPrimaryKeyElementGenerator;
+import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.SelectByUuidElementGenerator;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.UpdateByExampleSelectiveElementGenerator;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.UpdateByExampleWithBLOBsElementGenerator;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.UpdateByExampleWithoutBLOBsElementGenerator;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.UpdateByPrimaryKeySelectiveElementGenerator;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.UpdateByPrimaryKeyWithBLOBsElementGenerator;
 import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.UpdateByPrimaryKeyWithoutBLOBsElementGenerator;
+import org.mybatis.generator.codegen.mybatis3.xmlmapper.elements.UpdateByUuidSelectiveElementGenerator;
+import org.mybatis.generator.internal.util.GeneratorUtil;
+import org.mybatis.generator.internal.util.StringUtility;
+
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 /**
  * 
@@ -77,7 +81,7 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
         addSelectByPrimaryKeyElement(answer);
         addDeleteByPrimaryKeyElement(answer);
         addDeleteByExampleElement(answer);
-        addInsertElement(answer);
+//        addInsertElement(answer);
         addInsertSelectiveElement(answer);
         addCountByExampleElement(answer);
         addUpdateByExampleSelectiveElement(answer);
@@ -85,9 +89,32 @@ public class XMLMapperGenerator extends AbstractXmlGenerator {
         addUpdateByExampleWithoutBLOBsElement(answer);
         addUpdateByPrimaryKeySelectiveElement(answer);
         addUpdateByPrimaryKeyWithBLOBsElement(answer);
-        addUpdateByPrimaryKeyWithoutBLOBsElement(answer);
+//        addUpdateByPrimaryKeyWithoutBLOBsElement(answer);
+
+        /**
+         * 新增两个sql
+         * 如果表字段存在uuid或tableName_uuid则新增
+         */
+        String columnUuidName = GeneratorUtil.getColumnUuidName(introspectedTable);
+        if (StringUtility.stringHasValue(columnUuidName)){
+            addSelectByUuidElement(answer);
+            addUpdateByUuidSelectiveElement(answer);
+        }
 
         return answer;
+    }
+    protected void addSelectByUuidElement(XmlElement parentElement) {
+        if (introspectedTable.getRules().generateSelectByPrimaryKey()) {
+            AbstractXmlElementGenerator elementGenerator = new SelectByUuidElementGenerator();
+            initializeAndExecuteGenerator(elementGenerator, parentElement);
+        }
+    }
+    protected void addUpdateByUuidSelectiveElement(
+            XmlElement parentElement) {
+        if (introspectedTable.getRules().generateUpdateByPrimaryKeySelective()) {
+            AbstractXmlElementGenerator elementGenerator = new UpdateByUuidSelectiveElementGenerator();
+            initializeAndExecuteGenerator(elementGenerator, parentElement);
+        }
     }
 
     protected void addResultMapWithoutBLOBsElement(XmlElement parentElement) {

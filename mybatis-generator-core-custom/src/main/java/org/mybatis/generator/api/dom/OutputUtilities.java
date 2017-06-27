@@ -15,10 +15,10 @@
  */
 package org.mybatis.generator.api.dom;
 
+import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
+
 import java.util.Set;
 import java.util.TreeSet;
-
-import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 
 /**
  * The Class OutputUtilities.
@@ -71,7 +71,7 @@ public class OutputUtilities {
      */
     public static void xmlIndent(StringBuilder sb, int indentLevel) {
         for (int i = 0; i < indentLevel; i++) {
-            sb.append("  "); //$NON-NLS-1$
+            sb.append("    "); //$NON-NLS-1$
         }
     }
 

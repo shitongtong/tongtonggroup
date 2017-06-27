@@ -6,7 +6,7 @@
 
     <groupId>cn.stt</groupId>
     <artifactId>mybatis-generator-core-custom</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <dependencies>
@@ -92,22 +92,15 @@
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
+                        <configuration>
+                            <includes>
+                                <include>**/org/**</include>
+                            </includes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.8.1</version>
-                <executions>
-                    <execution>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -118,6 +111,9 @@
                             <mainClass>org.mybatis.generator.api.ShellRunner</mainClass>
                         </manifest>
                     </archive>
+                    <includes>
+                        <include>**/org/**</include>
+                    </includes>
                 </configuration>
             </plugin>
             <plugin>
@@ -125,6 +121,7 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
                     <descriptors>
                         <descriptor>${project.basedir}/src/main/assembly/src.xml</descriptor>
                     </descriptors>

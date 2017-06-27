@@ -3,15 +3,17 @@
   PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">  
   <generatorConfiguration> 
-   <classPathEntry  location="D:/mybatis/mybatis-generator-core-custom/mysql-connector-java-5.1.39.jar"/>
+   <classPathEntry  location="D:/mybatis-generator-core/mybatis-generator-core-custom/mysql-connector-java-5.1.39.jar"/>
     <context id="DB2Tables"  targetRuntime="MyBatis3">  
-        <commentGenerator>  
-            <property name="suppressDate" value="true"/>  
-            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->  
-            <property name="suppressAllComments" value="false"/>  
-        </commentGenerator>  
+        <!--<commentGenerator>
+            <property name="suppressDate" value="true"/>
+            &lt;!&ndash; 是否去除自动生成的注释 true：是 ： false:否 &ndash;&gt;
+            <property name="suppressAllComments" value="false"/>
+            &lt;!&ndash; 是否生成表的注释 true：是，false：否 &ndash;&gt;
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>-->
         <!--数据库链接URL，用户名、密码 -->  
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/onlyhi" userId="root" password="root">  
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.1.250:3306/onlyhitest" userId="root" password="123456">
         </jdbcConnection>  
         <javaTypeResolver>  
             <property name="forceBigDecimals" value="false"/>  
@@ -40,13 +42,16 @@
 		  enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
 		  
 		    <table tableName="tc_interview_record" domainObjectName="TcInterviewRecord" enableCountByExample="false" enableUpdateByExample="false"
-		  enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
+		  enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
        
 
         <table tableName="login_user" domainObjectName="LogigUser" enableCountByExample="false" enableUpdateByExample="false"
-		  enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>  
- --> 
-     <table tableName="leads" domainObjectName="Leads" ></table> 
-		
+		  enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+
+     <table tableName="leads"  enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!--<table tableName="class_room"  enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
+        <!--<database dbname="onlyhitest"/>-->
 	 </context>  
 </generatorConfiguration>  
