@@ -1,5 +1,6 @@
-package cn.stt.request;
+package cn.stt.minimal.request;
 
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -11,6 +12,8 @@ public class Demo {
     private String name;
     @ApiParam(name = "content" ,required = true)
     private String content;
+    @ApiModelProperty(name = "message",required = true)
+    private String message;
 
     public String getName() {
         return name;
@@ -28,11 +31,20 @@ public class Demo {
         this.content = content;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     @Override
     public String toString() {
         return "Demo{" +
                 "name='" + name + '\'' +
                 ", content='" + content + '\'' +
+                ", message='" + message + '\'' +
                 '}';
     }
 }

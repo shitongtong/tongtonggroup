@@ -1,4 +1,4 @@
-package cn.stt;
+package cn.stt.minimal;
 
 
 import org.slf4j.Logger;
@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @Configuration // 一般这个注解，我们用来标识main方法所在的类
 @EnableAutoConfiguration // 根据maven依赖的jar来自动猜测完成正确的spring的对应配置，只要引入了spring-boot-starter-web的依赖，默认会自动配置SpringMVC和tomcat容器
-@ComponentScan(basePackages = { "cn.stt" }) // 自动扫描加载所有的Spring组件包括Bean注入，一般用在main方法所在的类上
+@ComponentScan(basePackages = { "cn.stt.minimal" }) // 自动扫描加载所有的Spring组件包括Bean注入，一般用在main方法所在的类上
 //@ImportResource({"classpath:dubbo-consumer.xml"})
 public class MainimalReadApplication extends WebMvcConfigurerAdapter {
     private static Logger logger = LoggerFactory.getLogger(MainimalReadApplication.class);
@@ -33,7 +33,7 @@ public class MainimalReadApplication extends WebMvcConfigurerAdapter {
         defaultMap.put("spring.profiles.active","dev");
         app.setDefaultProperties(defaultMap);
         app.run(args);
-        logger.debug("容器启动成功");
+//        logger.debug("容器启动成功");
     }
 
     /**

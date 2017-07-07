@@ -1,4 +1,4 @@
-package cn.stt.config;
+package cn.stt.minimal.config;
 
 /**
  * Created by stt on 2017/7/6.
@@ -55,8 +55,8 @@ public class SwaggerConfig {
                 .pathMapping("/")// base，最终调用接口后会和paths拼接在一起
                 .select()
                 .paths(or(regex("/api/.*")))//过滤的接口
-                .build()
-                .apiInfo(testApiInfo());
+                .build();
+//                .apiInfo(testApiInfo());
     }
 
     @Bean
@@ -70,8 +70,8 @@ public class SwaggerConfig {
                 .pathMapping("/")
                 .select()
                 .paths(or(regex("/demo/.*")))//过滤的接口
-                .build()
-                .apiInfo(demoApiInfo());
+                .build();
+//                .apiInfo(demoApiInfo());
     }
 
     private ApiInfo testApiInfo() {
@@ -80,7 +80,7 @@ public class SwaggerConfig {
                 .description("EHR Platform's REST API, all the applications could access the Object model data via JSON.")//详细描述
                 .version("1.0")//版本
                 .termsOfServiceUrl("NO terms of service")
-                .contact(new Contact("小单", "http://blog.csdn.net/catoop", "365384722@qq.com"))//作者
+                .contact(new Contact("小单", "http://blog.csdn.net/catoop", "767035687@qq.com"))//作者
                 .license("The Apache License, Version 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .build();
@@ -96,7 +96,5 @@ public class SwaggerConfig {
                 .license("The Apache License, Version 2.0")
                 .licenseUrl("http://www.apache.org/licenses/LICENSE-2.0.html")
                 .build();
-
-//        return apiInfo;
     }
 }

@@ -1,8 +1,7 @@
-package cn.stt.controller;
+package cn.stt.minimal.controller;
 
-import cn.stt.request.Demo;
+import cn.stt.minimal.request.Demo;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +25,16 @@ public class DemoController {
 
     private Logger logger = LoggerFactory.getLogger(DemoController.class);
 
-    @PostMapping(value = "/test11"/*,produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE*/)
-
-    public ResponseEntity<Demo> test11(
+    @PostMapping(value = "/get"/*,produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE*/)
+    public ResponseEntity<Demo> get(
 //            @ApiParam(name = "name",required = true)
             Demo demo){
+        logger.info(demo.toString());
+        return ResponseEntity.ok(demo);
+    }
+
+    @PostMapping(value = "/getByJson"/*,produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE*/)
+    public ResponseEntity<Demo> getByJson(@RequestBody Demo demo){
         logger.info(demo.toString());
         return ResponseEntity.ok(demo);
     }

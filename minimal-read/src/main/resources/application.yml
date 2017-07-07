@@ -1,6 +1,6 @@
 #应用程序端口配置
 server: 
-  port: 20007
+  port: 8080
 #  tomcat:
 #    access-log-enabled: true
       

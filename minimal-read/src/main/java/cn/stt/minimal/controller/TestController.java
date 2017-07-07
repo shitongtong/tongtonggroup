@@ -1,4 +1,4 @@
-package cn.stt.controller;
+package cn.stt.minimal.controller;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

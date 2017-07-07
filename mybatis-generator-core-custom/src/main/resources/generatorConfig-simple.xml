@@ -12,6 +12,8 @@
             &lt;!&ndash; 是否生成表的注释 true：是，false：否 &ndash;&gt;
             <property name="addRemarkComments" value="true"/>
         </commentGenerator>-->
+        <!-- 生成的Java文件的编码 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
         <!--数据库链接URL，用户名、密码 -->  
         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://192.168.1.250:3306/onlyhitest" userId="root" password="123456">
         </jdbcConnection>  
@@ -21,7 +23,9 @@
         <!-- 生成模型的包名和位置-->  
         <javaModelGenerator targetPackage="entity.model" targetProject="d:/">
             <property name="enableSubPackages" value="true"/>  
-            <property name="trimStrings" value="true"/>  
+            <property name="trimStrings" value="true"/>
+            <!-- 生成父类继承关系 -->
+            <property name="rootClass" value="cn.onlyhi.po.BasePo"/>
         </javaModelGenerator>  
         <!-- 生成映射文件的包名和位置-->  
         <sqlMapGenerator targetPackage="entity.mappingxml" targetProject="d:/">
