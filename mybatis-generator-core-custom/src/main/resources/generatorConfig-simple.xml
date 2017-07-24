@@ -4,7 +4,8 @@
   "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">  
   <generatorConfiguration> 
    <classPathEntry  location="D:/mybatis-generator-core/mybatis-generator-core-custom/mysql-connector-java-5.1.39.jar"/>
-    <context id="DB2Tables"  targetRuntime="MyBatis3">  
+    <context id="MySQLTables"  targetRuntime="MyBatis3">
+    <!--<context id="MySQLTables"  targetRuntime="Mybatis3Simple">-->
         <!--<commentGenerator>
             <property name="suppressDate" value="true"/>
             &lt;!&ndash; 是否去除自动生成的注释 true：是 ： false:否 &ndash;&gt;
@@ -52,8 +53,9 @@
         <table tableName="login_user" domainObjectName="LogigUser" enableCountByExample="false" enableUpdateByExample="false"
 		  enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
 
-     <table tableName="leads"  enableCountByExample="false" enableUpdateByExample="false"
+     <table tableName="teacher_recommend" enableCountByExample="false" enableUpdateByExample="false"
             enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+    <!--<table tableName="teacher_recommend" ></table>-->
         <!--<table tableName="class_room"  enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<database dbname="onlyhitest"/>-->
