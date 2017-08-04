@@ -1,0 +1,50 @@
+#应用程序端口配置
+server: 
+  port: 30000
+#  tomcat:
+#    access-log-enabled: true
+
+#文件上传大小配置
+multipart:
+  maxFileSize: 100Mb
+  maxRequestSize: 100Mb
+
+#日志配置    
+logging: 
+#    file: 
+#    path: 
+    config: classpath:logback.xml
+#    level: 
+#        org.springframework.web: ERROR
+#        org.springframework.beans: ERROR
+
+
+spring:
+  #  view:
+  #    prefix:
+  #    suffix:
+  #  resources:
+  #   staticLocations:
+  #    -  classpath:/static/
+  freemarker:
+    prefix:
+    suffix: .ftl
+    template-loader-path:
+      - classpath:/templates/
+    charset: utf-8
+    request-context-attribute: rc
+  #    cache: false
+  #    enabled: true
+
+  #database setting
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url:  jdbc:mysql://rm-uf665r5id03a3i41oo.mysql.rds.aliyuncs.com:3306/onlyhitest?allowMultiQueries=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+    username: onlyhiedu
+    password: Hkt2016!@#
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+  jackson:
+    serialization: true

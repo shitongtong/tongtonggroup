@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>  
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="js/jquery.js"></script>
+    <script src="js/pintuer.js"></script>  
+</head>
+<body>
+<form method="post" action="">
+  <div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder">收支统计</strong></div>
+    <div class="padding border-bottom">
+      <ul class="search" style="padding-left:10px;">
+        <li>
+         班级：
+        </li>
+        <li>
+          <select name="cid" class="input" style="width:200px; line-height:17px;" onchange="changesearch()">
+            <option value="">请选择班级</option>
+            <option value="">信息101</option>
+            <option value="">信息102</option>
+            <option value="">信息103</option>
+            <option value="">信息104</option>
+          </select>
+        </li>
+        <li>
+          <input type="text" placeholder="请输入搜索班级名称" name="keywords" class="input" style="width:250px; line-height:17px;display:inline-block" />
+          <a href="javascript:void(0)" class="button border-main icon-search" onclick="changesearch()" > 搜索</a>
+        </li>
+        <li style="float:right;">
+          <span style="font-size:16px;font-weight:800;">总收入：-10元</span>
+          <span style="font-size:16px;font-weight:800;">总收支：-10元</span>
+          <span style="font-size:16px;font-weight:800;">总收支：-10元</span>
+        </li>
+      </ul>
+    </div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="120">ID</th>
+        <th>班级ID</th>       
+        <th>班级名称</th>
+        <th>班级人数</th>
+        <th>班级收入</th>
+        <th>班级消费</th>  
+        <th>班级收支</th>    
+      </tr>      
+        <tr>
+          <td>1</td>
+          <td>1001</td>
+          <td>信息101</td>
+          <td>43人</td>
+          <td>100元</td>
+          <td>102元</td>
+          <td>-2元</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>1002</td>
+          <td>信息101</td>
+          <td>43人</td>
+          <td>100元</td>
+          <td>102元</td>
+          <td>-2元</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>1003</td>
+          <td>信息101</td>
+          <td>43人</td>
+          <td>100元</td>
+          <td>102元</td>
+          <td>-2元</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>1004</td>
+          <td>信息101</td>
+          <td>43人</td>
+          <td>100元</td>
+          <td>102元</td>
+          <td>-2元</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>1005</td>
+          <td>信息101</td>
+          <td>43人</td>
+          <td>100元</td>
+          <td>102元</td>
+          <td>-2元</td>
+        </tr>
+      <tr>
+        <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
+      </tr>
+    </table>
+  </div>
+</form>
+<script type="text/javascript">
+
+function del(id){
+	if(confirm("您确定要删除吗?")){
+		
+	}
+}
+
+function DelSelect(){
+	var Checkbox=false;
+	 $("input[name='id[]']").each(function(){
+	  if (this.checked==true) {		
+		Checkbox=true;	
+	  }
+	});
+	if (Checkbox){
+		var t=confirm("您确认要删除选中的内容吗？");
+		if (t==false) return false; 		
+	}
+	else{
+		alert("请选择您要删除的内容!");
+		return false;
+	}
+}
+
+</script>
+</body></html>
